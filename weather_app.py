@@ -10,7 +10,7 @@ import plotly.express as px
 
 
 API_KEY = os.environ['ffd13df7ab936bfc133064b9b7b4cedd']
-owm = pyowm.OWM(ffd13df7ab936bfc133064b9b7b4cedd)
+owm = pyowm.OWM(API_KEY)
 mgr=owm.weather_manager()
 
 degree_sign= u'\N{DEGREE SIGN}'
