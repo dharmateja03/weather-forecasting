@@ -9,14 +9,14 @@ import plotly.graph_objects as go
 import plotly.express as px
 
 
-API_KEY = os.environ['API_KEY']
-owm = pyowm.OWM(API_KEY)
+API_KEY = os.environ['ffd13df7ab936bfc133064b9b7b4cedd']
+owm = pyowm.OWM(ffd13df7ab936bfc133064b9b7b4cedd)
 mgr=owm.weather_manager()
 
 degree_sign= u'\N{DEGREE SIGN}'
 
 st.title("5 Day Weather Forecast")
-st.write("## Made by Jayvardhan Rathi with ❤️")
+
 
 st.write("### Write the name of a City and select the Temperature Unit and Graph Type from the sidebar")
 
