@@ -5,27 +5,39 @@ import streamlit as st
 from matplotlib import dates
 from datetime import datetime
 from matplotlib import pyplot as plt
-from matplotlib import dates
-from datetime import datetime
-from matplotlib import pyplot as plt
 import plotly.graph_objects as go
 import plotly.express as px
 
-owm=pyowm.OWM('ffd13df7ab936bfc133064b9b7b4cedd')
-degree_sign= u'\N{DEGREE SIGN}'
+
+API_KEY = os.environ['API_KEY']
+owm = pyowm.OWM(API_KEY)
 mgr=owm.weather_manager()
+
+degree_sign= u'\N{DEGREE SIGN}'
+
 st.title("5 Day Weather Forecast")
+st.write("## Made by Jayvardhan Rathi with ❤️")
+
 st.write("### Write the name of a City and select the Temperature Unit and Graph Type from the sidebar")
+
 place=st.text_input("NAME OF THE CITY :", "")
+
 
 if place == None:
     st.write("Input a CITY!")
+
+
+
 unit=st.selectbox("Select Temperature Unit",("Celsius","Fahrenheit"))
+
 g_type=st.selectbox("Select Graph Type",("Line Graph","Bar Graph"))
+
 if unit == 'Celsius':
     unit_c = 'celsius'
 else:
     unit_c = 'fahrenheit'
+
+
 def get_temperature():
     days = []
     dates = []
@@ -48,7 +60,8 @@ def get_temperature():
         if not temp_max[-1] or temperature > temp_max[-1]:
             temp_max[-1] = temperature
     return(days, temp_min, temp_max)
-    def init_plot():
+
+def init_plot():
      plt.figure('PyOWM Weather', figsize=(5,4))
      plt.xlabel('Day')
      plt.ylabel(f'Temperature ({degree_sign}F)')
