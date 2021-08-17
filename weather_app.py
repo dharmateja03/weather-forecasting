@@ -155,7 +155,12 @@ def updates():
     other_weather_updates()
     cloud_and_wind()
     sunrise_and_sunset()
-st.info("## Made by Dharma Teja with ❤️")
+st.write("## Made by Dharma Teja with ❤️")
+hide_footer_style = """
+<style>
+.reportview-container .main footer {visibility: hidden;}    
+"""
+st.markdown(hide_footer_style, unsafe_allow_html=True)
 
 
 if __name__ == '__main__':
