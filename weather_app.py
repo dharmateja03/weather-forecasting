@@ -7,6 +7,9 @@ from datetime import datetime
 from matplotlib import pyplot as plt
 import plotly.graph_objects as go
 import plotly.express as px
+from htbuilder import HtmlElement, div, ul, li, br, hr, a, p, img, styles, classes, fonts
+from htbuilder.units import percent, px
+from htbuilder.funcs import rgba, rgb
 
 
 
@@ -155,15 +158,88 @@ def updates():
     other_weather_updates()
     cloud_and_wind()
     sunrise_and_sunset()
-st.write("## Made by Dharma Teja with ❤️")
+
 hide_footer_style = """
 <style>
 .reportview-container .main footer {visibility: hidden;}    
 """
 st.markdown(hide_footer_style, unsafe_allow_html=True)
+def link(link, text, **style):
+    return a(_href=link, _target="_blank", style=styles(**style))(text)
+
+
+def layout(*args):
+
+    style = """
+    <style>
+      # MainMenu {visibility: hidden;}
+      footer {visibility: hidden;}
+     .stApp { bottom: 100px; }
+    </style>
+    """
+
+    style_div = styles(
+        position="fixed",
+        left=0,
+        bottom=0,
+        margin=px(0, 0, 0, 0),
+        width=percent(100),
+        color="black",
+        text_align="center",
+        height="auto",
+        opacity=1
+    )
+
+    style_hr = styles(
+        display="block",
+        margin=px(1, 1, "auto", "auto"),
+        border_style="inset",
+        border_width=px(0)
+    )
+
+    body = p()
+    foot = div(
+        style=style_div
+    )(
+        hr(
+            style=style_hr
+        ),
+        body
+    )
+
+    st.markdown(style, unsafe_allow_html=True)
+
+    for arg in args:
+        if isinstance(arg, str):
+            body(arg)
+
+        elif isinstance(arg, HtmlElement):
+            body(arg)
+
+    st.markdown(str(foot), unsafe_allow_html=True)
+
+
+def image(src_as_string, **style):
+    return img(src=src_as_string, style=styles(**style))
+
+def footer():
+    myargs = [
+    "Made in ",
+    image('https://avatars3.githubusercontent.com/u/45109972?s=400&v=4',
+          width=px(35), height=px(35)),
+    " with ❤️ by DharmaTeja",
+    br(),
+    link("https://www.linkedin.com/in/dharma-t-015402132/", image('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.IfuhJTGsN34WQqAZIdufvQHaHa%26pid%3DApi&f=1',width=px(35), height=px(35))),
+    
+    link("https://github.com/dharmateja03", image('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.w4Zs5bS5enpd8KSYe7s5JQHaHa%26pid%3DApi&f=1',width=px(35), height=px(35))),
+    
+    
+]
+    layout(*myargs)
 
 
 if __name__ == '__main__':
+    footer()
     
     if st.button("SUBMIT"):
         if g_type == 'Line Graph':
